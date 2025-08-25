@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Meta and SEO from JSON -->
+    <title>Aarav Mehta — Product Manager</title>
+    <meta name="description" content="Product leader — strategy, roadmaps, growth. Case studies with measurable impact.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Merriweather:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Aarav Mehta",
+      "jobTitle": "Product Manager",
+      "url": "https://example.com", 
+      "sameAs": [
+        "https://linkedin.com/in/aarav-mehta"
+      ]
+    }
+    </script>
+
+    <script>
+        // --- User-provided JSON data ---
+        const data = {
+          "meta": { "siteTitle": "Aarav Mehta — Product Manager", "metaDescription": "Product leader — strategy, roadmaps, growth. Case studies with measurable impact." },
+          "theme": { "palette": { "background": "#F5F7FB", "surface": "#FFFFFF", "text": "#0B1A2B", "accent": "#0F9D8E", "muted": "#6B7280" }, "fonts": { "heading": "Merriweather, serif", "body": "Inter, sans-serif" } },
+          "layout": { "maxWidth": "1200px" },
+          "header": { "logo": { "type": "text", "value": "Aarav Mehta" }, "nav": ["Work", "About", "Contact"], "cta": { "label": "Schedule Walkthrough", "href": "https://calendly.com/aarav-pm/30min" } },
+          "hero": { "headline": "Product leader who ships customer-first experiences", "subheadline": "Strategy • Roadmaps • Growth — measurable outcomes, explained simply", "backgroundImage": "https://picsum.photos/seed/pm-hero/1920/1080", "visualOverlays": [ { "type": "floatingMetric", "label": "Users impacted", "value": "120K+" }, { "type": "miniRoadmap", "items": ["Q1 — Discovery", "Q2 — Build", "Q3 — Optimize"] } ], "portrait": "https://picsum.photos/seed/aarav/600/800", "primaryCTA": { "label": "View Case Studies", "href": "#case-studies" }, "secondaryCTA": { "label": "Download Resume", "href": "/assets/Aarav_Mehta_Resume.pdf" } },
+          "sections": [
+            { "id": "case-studies", "title": "Selected Case Studies", "layout": "cards-grid", "examples": [ { "title": "Onboarding Redesign — SaaS", "problem": "Low activation (12%)", "approach": "AB-tested two flows + contextual tips", "metrics": { "activation": "+24%", "retention": "+12%" }, "role": "PM (led 6-person team)", "link": "#" }, { "title": "Payments Flow — Fintech", "problem": "High checkout drop-off", "approach": "Simplified UX + retry logic", "metrics": { "checkoutConversion": "+18%", "revenue": "₹45L/mo" }, "role": "PM (roadmap & analytics)", "link": "#" } ] },
+            { "id": "metrics", "title": "Impact At-a-Glance", "visual": "metricTiles", "tiles": [ { "label": "Monthly Active Users", "value": "120k+" }, { "label": "ARR Influence", "value": "₹1.2 Cr" }, { "label": "Avg. Activation Lift", "value": "24%" } ] },
+            { "id": "about", "title": "About Me", "content": "Product leader with 6+ years across SaaS & fintech. I focus on measurable outcomes and building cross-functional teams that thrive on collaboration and user-centricity." },
+            { "id": "contact", "title": "Talk Product", "contact": { "email": "aarav.pm@example.com", "linkedin": "https://linkedin.com/in/aarav-mehta" } }
+          ],
+          "interactions": { "reveal": "fadeUp", "caseCardHover": "lift-shadow" },
+          "backgroundAssets": { "floatingShapes": true, "opacity": 0.03 }
+        };
+
+        // --- Tailwind CSS Configuration ---
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ...data.theme.palette
+                    },
+                    fontFamily: {
+                        sans: data.theme.fonts.body.split(', '),
+                        serif: data.theme.fonts.heading.split(', '),
+                    },
+                    maxWidth: {
+                        'container': data.layout.maxWidth,
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles & Animations */
+        .font-heading { font-family: 'Merriweather', serif; }
+        .font-body { font-family: 'Inter', sans-serif; }
+        
+        .lift-shadow {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .lift-shadow:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .hero-bg-overlay::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(11, 26, 43, 0.8) 0%, rgba(11, 26, 43, 0.4) 100%);
+            z-index: 1;
+        }
+        
+        .floating-shape {
+            position: absolute;
+            background-color: ${data.theme.palette.accent};
+            opacity: ${data.backgroundAssets.opacity};
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation: morph 15s ease-in-out infinite;
+            z-index: -1;
+        }
+        
+        @keyframes morph {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: rotate(0deg) scale(1); }
+            50% { border-radius: 60% 40% 30% 70% / 70% 50% 50% 30%; transform: rotate(180deg) scale(1.1); }
+            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: rotate(360deg) scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-text antialiased">
+
+    <!-- App Container -->
+    <div id="app" class="relative overflow-x-hidden"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const app = document.getElementById('app');
+
+            // --- Helper to create placeholder images ---
+            const placeholderImg = (seed, width, height) => `https://placehold.co/${width}x${height}/E0E0E0/BDBDBD?text=Image+Not+Found&font=inter`;
+
+            // --- Floating Background Shapes ---
+            const createFloatingShapes = () => {
+                if (!data.backgroundAssets.floatingShapes) return '';
+                const container = document.createElement('div');
+                container.className = 'absolute inset-0 z-0 overflow-hidden';
+                container.innerHTML = `
+                    <div class="floating-shape" style="width: 400px; height: 400px; top: 10%; left: 5%;"></div>
+                    <div class="floating-shape" style="width: 300px; height: 300px; top: 60%; right: -10%; animation-delay: 5s;"></div>
+                    <div class="floating-shape" style="width: 200px; height: 200px; top: 80%; left: 20%; animation-delay: 10s;"></div>
+                `;
+                return container;
+            };
+
+            // --- Header ---
+            const createHeader = () => {
+                const header = document.createElement('header');
+                header.className = "bg-surface/80 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 shadow-sm";
+                header.innerHTML = `
+                    <div class="max-w-container mx-auto px-6 h-20 flex justify-between items-center">
+                        <a href="#" class="font-heading font-bold text-xl text-text">${data.header.logo.value}</a>
+                        <nav class="hidden md:flex items-center gap-6">
+                            ${data.header.nav.map(item => `<a href="#${item.toLowerCase().replace(' ', '-')}" class="text-muted hover:text-accent transition-colors">${item}</a>`).join('')}
+                        </nav>
+                        <a href="${data.header.cta.href}" target="_blank" class="hidden md:inline-block bg-accent text-white font-bold py-2 px-5 rounded-lg hover:opacity-90 transition-opacity">
+                            ${data.header.cta.label}
+                        </a>
+                        <button id="mobile-menu-button" class="md:hidden text-text">
+                            <i data-lucide="menu"></i>
+                        </button>
+                    </div>
+                    <!-- Mobile Menu -->
+                    <div id="mobile-menu" class="hidden md:hidden bg-surface absolute top-full left-0 w-full shadow-lg">
+                        <div class="flex flex-col p-6 gap-4">
+                            ${data.header.nav.map(item => `<a href="#${item.toLowerCase().replace(' ', '-')}" class="text-muted hover:text-accent transition-colors">${item}</a>`).join('')}
+                            <a href="${data.header.cta.href}" target="_blank" class="bg-accent text-white font-bold text-center py-3 px-5 rounded-lg hover:opacity-90 transition-opacity mt-4">
+                                ${data.header.cta.label}
+                            </a>
+                        </div>
+                    </div>
+                `;
+                return header;
+            };
+
+            // --- Hero Section ---
+            const createHero = () => {
+                const hero = data.hero;
+                const section = document.createElement('section');
+                section.id = "hero";
+                section.className = "relative h-screen min-h-[700px] flex items-center text-white hero-bg-overlay";
+                section.innerHTML = `
+                    <img src="${hero.backgroundImage}" onerror="this.onerror=null;this.src='${placeholderImg('hero-bg', 1920, 1080)}';" alt="Background" class="absolute inset-0 w-full h-full object-cover" loading="lazy">
+                    <div class="relative z-10 max-w-container mx-auto px-6 w-full grid md:grid-cols-2 gap-8 items-center">
+                        <!-- Left Content -->
+                        <div class="fade-up">
+                            <h1 class="font-heading font-black text-4xl lg:text-6xl leading-tight">${hero.headline}</h1>
+                            <p class="mt-4 text-lg lg:text-xl text-gray-300 max-w-lg">${hero.subheadline}</p>
+                            <div class="mt-8 flex flex-wrap gap-4">
+                                <a href="${hero.primaryCTA.href}" class="bg-accent text-white font-bold py-3 px-8 rounded-lg hover:opacity-90 transition-opacity text-center">${hero.primaryCTA.label}</a>
+                                <a href="${hero.secondaryCTA.href}" class="bg-surface/20 border border-white/30 text-white font-bold py-3 px-8 rounded-lg hover:bg-surface/30 transition-colors text-center">${hero.secondaryCTA.label}</a>
+                            </div>
+                        </div>
+                        <!-- Right Visuals -->
+                        <div class="relative hidden md:block">
+                            <!-- Floating Metric Card -->
+                            <div class="absolute -top-16 left-0 bg-surface/90 backdrop-blur-md text-text p-4 rounded-xl shadow-2xl fade-up" style="transition-delay: 200ms;">
+                                <p class="text-sm text-muted">${hero.visualOverlays[0].label}</p>
+                                <p class="font-heading font-bold text-3xl text-accent">${hero.visualOverlays[0].value}</p>
+                            </div>
+                            <!-- Mini Roadmap Card -->
+                            <div class="absolute -bottom-16 right-0 bg-surface/90 backdrop-blur-md text-text p-4 rounded-xl shadow-2xl w-52 fade-up" style="transition-delay: 400ms;">
+                                <ul class="space-y-2">
+                                    ${hero.visualOverlays[1].items.map(item => `
+                                        <li class="flex items-center gap-2 text-sm">
+                                            <span class="bg-accent/20 text-accent rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">${item.split(' ')[0][1]}</span>
+                                            <span class="text-muted">${item}</span>
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                return section;
+            };
+            
+            // --- Section Creator ---
+            const createSection = (sectionData) => {
+                const section = document.createElement('section');
+                section.id = sectionData.id;
+                section.className = "py-20 md:py-28";
+                
+                let contentHTML = '';
+                switch (sectionData.id) {
+                    case 'case-studies':
+                        contentHTML = `
+                            <div class="mt-16 grid md:grid-cols-2 gap-8 lg:gap-12">
+                                ${sectionData.examples.map(card => `
+                                    <a href="${card.link}" class="block bg-surface rounded-xl shadow-md overflow-hidden lift-shadow">
+                                        <div class="p-8">
+                                            <h3 class="font-heading text-2xl font-bold text-text mb-4">${card.title}</h3>
+                                            <div class="space-y-4 text-muted">
+                                                <p><strong class="text-text">Problem:</strong> ${card.problem}</p>
+                                                <p><strong class="text-text">Approach:</strong> ${card.approach}</p>
+                                                <div class="flex gap-6 pt-2">
+                                                    ${Object.entries(card.metrics).map(([key, value]) => `
+                                                        <div>
+                                                            <p class="text-sm capitalize">${key.replace(/([A-Z])/g, ' $1')}</p>
+                                                            <p class="text-accent font-bold text-xl">${value}</p>
+                                                        </div>
+                                                    `).join('')}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                `).join('')}
+                            </div>
+                        `;
+                        break;
+                    case 'metrics':
+                        contentHTML = `
+                            <div class="mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                                ${sectionData.tiles.map(tile => `
+                                    <div class="bg-surface p-8 rounded-xl shadow-md text-center">
+                                        <p class="text-accent font-heading font-bold text-4xl">${tile.value}</p>
+                                        <p class="mt-2 text-muted">${tile.label}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                        break;
+                    case 'about':
+                        contentHTML = `<p class="mt-8 text-center max-w-3xl mx-auto text-lg text-muted leading-relaxed">${sectionData.content}</p>`;
+                        break;
+                    case 'contact':
+                        contentHTML = `
+                            <div class="mt-12 text-center flex flex-col items-center gap-6">
+                                <p class="text-lg text-muted">Let's connect and build something great together.</p>
+                                <div class="flex items-center gap-6">
+                                    <a href="mailto:${sectionData.contact.email}" class="flex items-center gap-2 text-text hover:text-accent transition-colors"><i data-lucide="mail"></i> Email</a>
+                                    <a href="${sectionData.contact.linkedin}" target="_blank" class="flex items-center gap-2 text-text hover:text-accent transition-colors"><i data-lucide="linkedin"></i> LinkedIn</a>
+                                </div>
+                            </div>
+                        `;
+                        break;
+                }
+
+                section.innerHTML = `
+                    <div class="max-w-container mx-auto px-6 fade-up">
+                        <h2 class="font-heading text-3xl md:text-4xl font-bold text-center text-text">${sectionData.title}</h2>
+                        ${contentHTML}
+                    </div>
+                `;
+                return section;
+            };
+            
+            // --- Footer ---
+            const createFooter = () => {
+                const footer = document.createElement('footer');
+                footer.className = "bg-text text-background/70 py-8";
+                footer.innerHTML = `
+                    <div class="max-w-container mx-auto px-6 text-center">
+                        <p>&copy; ${new Date().getFullYear()} ${data.header.logo.value}. All Rights Reserved.</p>
+                    </div>
+                `;
+                return footer;
+            }
+
+            // --- Build Page ---
+            if (data.backgroundAssets.floatingShapes) app.appendChild(createFloatingShapes());
+            app.appendChild(createHeader());
+            app.appendChild(createHero());
+            data.sections.forEach(section => app.appendChild(createSection(section)));
+            app.appendChild(createFooter());
+            
+            // --- Activate Icons ---
+            lucide.createIcons();
+            
+            // --- Event Listeners ---
+            // Mobile Menu Toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+            // Scroll Reveal Animation
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

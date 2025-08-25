@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Meta Info from JSON -->
+    <title>Jane Doe — Photographer</title>
+    <meta name="description" content="Weddings, portraits, commercial shoots, booking info.">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* Style for the glow effect on cards and images */
+        .glow-effect {
+            transition: box-shadow 0.3s ease-in-out;
+        }
+        .glow-effect:hover {
+            box-shadow: 0 0 25px 5px rgba(255, 255, 255, 0.06);
+        }
+        /* Styles for scroll-reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Custom scrollbar for a more modern look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2d2d2d;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a4a4a;
+        }
+    </style>
+</head>
+<body class="bg-black text-white">
+
+    <!-- Background Watermark Icons -->
+    <div class="fixed inset-0 z-0 flex items-center justify-center opacity-[0.03] overflow-hidden" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-white absolute -top-20 -left-20"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"></path><circle cx="12" cy="13" r="3"></circle></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-white"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle><line x1="1" x2="23" y1="12" y2="12"></line><line x1="12" x2="12" y1="1" y2="23"></line></svg>
+    </div>
+
+    <div id="root" class="relative z-10">
+        <!-- Header -->
+        <header id="header" class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-80 backdrop-blur-sm transition-all duration-300">
+            <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-20">
+                    <!-- Logo -->
+                    <a href="#" class="text-2xl font-bold tracking-wider text-white uppercase">Doe Photography</a>
+                    
+                    <!-- Desktop Navigation -->
+                    <nav class="hidden md:flex items-center space-x-8">
+                        <a href="#home" class="text-gray-300 hover:text-white transition-colors">Home</a>
+                        <a href="#portfolio" class="text-gray-300 hover:text-white transition-colors">Portfolio</a>
+                        <a href="#services" class="text-gray-300 hover:text-white transition-colors">Services</a>
+                        <a href="#clients" class="text-gray-300 hover:text-white transition-colors">Clients</a>
+                        <a href="#contact" class="text-gray-300 hover:text-white transition-colors">Contact</a>
+                    </nav>
+
+                    <!-- CTA Button -->
+                    <a href="#contact" class="hidden md:inline-block bg-white text-black px-6 py-2 rounded-md font-semibold hover:bg-gray-200 transition-colors">Request Quote</a>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-button" class="md:hidden text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden bg-black py-4">
+                <nav class="flex flex-col items-center space-y-4">
+                    <a href="#home" class="text-gray-300 hover:text-white transition-colors">Home</a>
+                    <a href="#portfolio" class="text-gray-300 hover:text-white transition-colors">Portfolio</a>
+                    <a href="#services" class="text-gray-300 hover:text-white transition-colors">Services</a>
+                    <a href="#clients" class="text-gray-300 hover:text-white transition-colors">Clients</a>
+                    <a href="#contact" class="text-gray-300 hover:text-white transition-colors">Contact</a>
+                    <a href="#contact" class="mt-2 bg-white text-black px-6 py-2 rounded-md font-semibold hover:bg-gray-200 transition-colors">Request Quote</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Hero Section -->
+            <!-- Added pt-20 (padding-top) to offset the content below the fixed h-20 header -->
+            <section id="home" class="min-h-screen flex items-center justify-center relative -mx-4 sm:-mx-6 lg:-mx-8 pt-20">
+                <div class="absolute inset-0">
+                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1974&auto=format&fit=crop" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/000000/ffffff?text=Banner+Image';"
+                         alt="Woman posing for a portrait" 
+                         class="w-full h-full object-cover opacity-30">
+                    <div class="absolute inset-0 bg-black opacity-50"></div>
+                </div>
+                <div class="relative z-10 text-center p-8 flex flex-col items-center">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/150x150/e6e6e6/000000?text=JD';"
+                         alt="Photographer Jane Doe" 
+                         class="w-36 h-36 rounded-full object-cover border-4 border-white mb-6 shadow-lg">
+                    <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white tracking-tight">Jane Doe</h1>
+                    <p class="mt-4 text-xl md:text-2xl text-gray-300">Weddings • Commercial • Portraits</p>
+                    <a href="#portfolio" class="mt-8 bg-white text-black px-10 py-4 rounded-md text-lg font-semibold hover:bg-gray-200 transition-transform hover:scale-105">View Portfolio</a>
+                </div>
+            </section>
+
+            <!-- Portfolio Section -->
+            <section id="portfolio" class="py-20 md:py-32 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">Portfolio</h2>
+                <div class="space-y-20">
+                    <!-- Wedding Gallery -->
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-8 text-gray-300">Wedding Highlights</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+                            <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=800&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://placehold.co/800x1200/000/fff?text=Image';" alt="Wedding Photo 1" class="w-full h-auto object-cover rounded-lg cursor-pointer glow-effect portfolio-item" loading="lazy">
+                            <img src="https://images.unsplash.com/photo-1504208434309-cb69f4fe52b0?q=80&w=800&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://placehold.co/800x1200/000/fff?text=Image';" alt="Wedding Photo 2" class="w-full h-auto object-cover rounded-lg cursor-pointer glow-effect portfolio-item" loading="lazy">
+                            <img src="https://images.unsplash.com/photo-1519741497674-6114d186b25c?q=80&w=800&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://placehold.co/800x1200/000/fff?text=Image';" alt="Wedding Photo 3" class="w-full h-auto object-cover rounded-lg cursor-pointer glow-effect portfolio-item" loading="lazy">
+                        </div>
+                    </div>
+                    <!-- Portrait Gallery -->
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-8 text-gray-300">Portraits</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=800&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://placehold.co/800x1200/000/fff?text=Image';" alt="Portrait Photo 1" class="w-full h-auto object-cover rounded-lg cursor-pointer glow-effect portfolio-item" loading="lazy">
+                            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=800&auto=format&fit=crop" onerror="this.onerror=null;this.src='https://placehold.co/800x1200/000/fff?text=Image';" alt="Portrait Photo 2" class="w-full h-auto object-cover rounded-lg cursor-pointer glow-effect portfolio-item" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section id="services" class="py-20 md:py-32 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">Services & Pricing</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-[#111] p-8 rounded-lg border border-gray-800 glow-effect">
+                        <h3 class="text-2xl font-bold text-white mb-4">Wedding Package</h3>
+                        <p class="text-gray-400">Full day coverage, high-resolution digital gallery, print rights, and custom album options. We capture every moment of your special day.</p>
+                    </div>
+                    <div class="bg-[#111] p-8 rounded-lg border border-gray-800 glow-effect">
+                        <h3 class="text-2xl font-bold text-white mb-4">Commercial</h3>
+                        <p class="text-gray-400">Professional photography for your brand. We specialize in product shots, lifestyle imagery, and corporate headshots to elevate your business.</p>
+                    </div>
+                    <div class="bg-[#111] p-8 rounded-lg border border-gray-800 glow-effect">
+                        <h3 class="text-2xl font-bold text-white mb-4">Portraits</h3>
+                        <p class="text-gray-400">Individual, couple, or family portraits in our studio or at a location of your choice. A relaxed session to capture your personality.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials Section -->
+            <section id="clients" class="py-20 md:py-32 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold text-center mb-16">Client Testimonials</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-[#111] p-8 rounded-lg border border-gray-800">
+                        <p class="text-gray-300 italic mb-6">"Exceptional work and timely delivery. Jane has an incredible eye for detail and made the entire process seamless and enjoyable."</p>
+                        <p class="font-bold text-white">- Client X</p>
+                    </div>
+                    <div class="bg-[#111] p-8 rounded-lg border border-gray-800">
+                        <p class="text-gray-300 italic mb-6">"Captured our wedding beautifully! The photos are more than we could have ever dreamed of. We will cherish them forever."</p>
+                        <p class="font-bold text-white">- Client Y</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="py-20 md:py-32 text-center reveal">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6">Booking & Contact</h2>
+                <p class="max-w-2xl mx-auto text-lg text-gray-400 mb-12">
+                    Ready to create something beautiful? Reach out directly via phone or email. No forms, just a quick and easy conversation to get started.
+                </p>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 text-xl">
+                    <a href="tel:+91-9876543210" class="text-gray-300 hover:text-white transition-colors">+91-9876543210</a>
+                    <a href="mailto:photo@example.com" class="text-gray-300 hover:text-white transition-colors">photo@example.com</a>
+                </div>
+                <div class="flex justify-center gap-8 mt-12">
+                    <a href="https://instagram.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </a>
+                    <a href="https://facebook.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-gray-800 py-8">
+            <div class="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+                <p>&copy; <span id="year"></span> Doe Photography. All Rights Reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 hidden p-4">
+        <img id="lightbox-img" src="" alt="Full-size view" class="max-w-full max-h-full rounded-lg">
+        <button id="lightbox-close" class="absolute top-6 right-6 text-white text-4xl">&times;</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Set current year in footer ---
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            // --- Mobile Menu Toggle ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Close mobile menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // --- Lightbox Functionality ---
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxClose = document.getElementById('lightbox-close');
+            const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+            portfolioItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const highResSrc = item.src.replace('w=800', 'w=1920'); // Attempt to load a higher-res version
+                    lightboxImg.src = highResSrc;
+                    lightbox.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling
+                });
+            });
+
+            function closeLightbox() {
+                lightbox.classList.add('hidden');
+                document.body.style.overflow = 'auto'; // Restore scrolling
+            }
+
+            lightboxClose.addEventListener('click', closeLightbox);
+            // Close lightbox when clicking on the background
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+             // Close lightbox with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) {
+                    closeLightbox();
+                }
+            });
+
+            // --- Scroll Reveal Animation ---
+            const revealElements = document.querySelectorAll('.reveal');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Optional: stop observing once visible
+                    }
+                });
+            }, {
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            });
+
+            revealElements.forEach(el => {
+                observer.observe(el);
+            });
+            
+            // --- Sticky Header Background on Scroll ---
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('shadow-lg');
+                } else {
+                    header.classList.remove('shadow-lg');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

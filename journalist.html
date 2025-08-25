@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priya Sharma | Journalist Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" xintegrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <script>
+        // Custom Tailwind theme configuration
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'saffron': '#FF9933',
+                        'teal': '#008080',
+                        'deep-navy': '#1A1A40',
+                    },
+                    fontFamily: {
+                        'header': ['"Playfair Display"', 'serif'],
+                        'body': ['"Inter"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom styles for animations and nav underlines */
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #FF9933; /* saffron */
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Hero Animations */
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-slide-in-left {
+            animation: slideInLeft 1s ease-out forwards;
+            opacity: 0;
+        }
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .animate-scale-up {
+            animation: scaleUp 1.2s ease-out forwards;
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        @keyframes scaleUp {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body class="bg-white text-deep-navy font-body">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white/80 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-header font-bold text-deep-navy">Priya Sharma</a>
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold tracking-wider uppercase">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#stories" class="nav-link">Stories</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#achievements" class="nav-link">Awards</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-2xl text-deep-navy">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <a href="#home" class="block py-3 px-6 hover:bg-gray-50">Home</a>
+            <a href="#stories" class="block py-3 px-6 hover:bg-gray-50">Stories</a>
+            <a href="#about" class="block py-3 px-6 hover:bg-gray-50">About</a>
+            <a href="#experience" class="block py-3 px-6 hover:bg-gray-50">Experience</a>
+            <a href="#achievements" class="block py-3 px-6 hover:bg-gray-50">Awards</a>
+            <a href="#contact" class="block py-3 px-6 hover:bg-gray-50">Contact</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="relative h-screen w-full flex items-center justify-center bg-gradient-to-br from-deep-navy to-teal text-white">
+            <div class="absolute inset-0 bg-black/20"></div>
+            <div class="relative container mx-auto px-6 flex flex-col-reverse md:flex-row items-center justify-center gap-8 text-center md:text-left">
+                <!-- Text Content -->
+                <div class="md:w-1/2 lg:w-3/5">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-header font-black leading-tight mb-4 animate-fade-in-up" style="animation-delay: 0.2s;">Uncovering Truth, One Story at a Time.</h1>
+                    <p class="text-lg md:text-xl font-medium text-gray-200 animate-slide-in-left" style="animation-delay: 0.5s;">Portfolio of a journalist passionate about investigative reporting and compelling storytelling.</p>
+                </div>
+                <!-- Image -->
+                <div class="md:w-1/2 lg:w-2/5 flex justify-center animate-scale-up" style="animation-delay: 0.8s;">
+                     <img src="https://placehold.co/400x500/ffffff/1A1A40?text=Portrait" alt="Priya Sharma Portrait" class="rounded-lg shadow-2xl w-full max-w-xs md:max-w-sm">
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Work Section -->
+        <section id="stories" class="py-20 md:py-28 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-header font-bold text-center mb-12">Latest Stories</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Investigative Card -->
+                    <div class="bg-deep-navy text-white p-8 rounded-lg shadow-lg transform hover:scale-105 hover:shadow-2xl transition-all duration-300">
+                        <span class="text-saffron font-semibold text-sm uppercase">Investigative</span>
+                        <h3 class="font-header text-2xl font-bold my-4">The Silicon Shadow Economy</h3>
+                        <p class="font-light mb-6">An exposé on the unregulated data brokers operating in the heart of tech.</p>
+                        <a href="#" class="font-semibold group">Read Full Article <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i></a>
+                    </div>
+                    <!-- Interview Card -->
+                    <div class="bg-teal text-gray-100 p-8 rounded-lg shadow-lg transform hover:scale-105 hover:shadow-2xl transition-all duration-300">
+                        <span class="text-white font-semibold text-sm uppercase">Interview</span>
+                        <h3 class="font-header text-2xl font-bold my-4">"We Need a Digital Geneva Convention"</h3>
+                        <p class="font-light italic mb-6">A conversation with tech ethicist Dr. Aris Thorne on the future of cyber-warfare.</p>
+                        <a href="#" class="font-semibold group nav-link text-white">View The Interview <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i></a>
+                    </div>
+                    <!-- Opinion Card -->
+                    <div class="bg-saffron text-black p-8 rounded-lg shadow-lg transform hover:scale-105 hover:shadow-2xl transition-all duration-300">
+                        <span class="text-deep-navy font-semibold text-sm uppercase">Opinion</span>
+                        <h3 class="font-header text-2xl font-bold my-4">The Illusion of Choice</h3>
+                        <p class="font-light mb-6">Why the endless scroll is the most dangerous invention of our time.</p>
+                        <a href="#" class="font-semibold group">Share Your Thoughts <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 md:py-28">
+            <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+                <div class="grid grid-cols-2 gap-4">
+                    <img src="https://placehold.co/400x300/008080/FFFFFF?text=On+Assignment" alt="Journalist at work 1" class="rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300">
+                    <img src="https://placehold.co/400x300/FF9933/1A1A40?text=Interviewing" alt="Journalist at work 2" class="rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300 mt-8">
+                    <img src="https://placehold.co/400x300/1A1A40/FFFFFF?text=In+The+Field" alt="Journalist at work 3" class="rounded-lg shadow-md transform hover:scale-105 transition-transform duration-300 col-span-2">
+                </div>
+                <div>
+                    <h2 class="text-4xl font-header font-bold mb-6">Driven by a Passion for Truth.</h2>
+                    <p class="text-lg text-gray-600 mb-4 leading-relaxed">
+                        For over a decade, I've been on the ground, chasing stories that matter. From political backrooms to the frontlines of technological disruption, my mission has been to provide clear, factual, and impactful reporting.
+                    </p>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        I believe that great journalism is about more than just reporting the facts; it's about telling the human stories behind the headlines. It's about holding power accountable and giving a voice to those who might otherwise go unheard.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-20 md:py-28 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-header font-bold text-center mb-16">Career Journey</h2>
+                <div class="relative max-w-2xl mx-auto">
+                    <!-- Vertical Line -->
+                    <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gray-200"></div>
+                    <!-- Timeline Items -->
+                    <div class="space-y-12">
+                        <!-- Item 1 -->
+                        <div class="relative">
+                            <div class="md:flex items-center">
+                                <div class="md:w-1/2 text-center md:text-right md:pr-8">
+                                    <h3 class="font-header text-xl font-bold text-teal">Senior Investigative Journalist</h3>
+                                    <p class="text-gray-600 font-semibold">The Wire</p>
+                                    <p class="text-sm text-gray-500">2020 - Present</p>
+                                </div>
+                                <div class="md:w-1/2 md:pl-8 mt-4 md:mt-0">
+                                    <div class="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-teal rounded-full border-4 border-white"></div>
+                                    <p class="text-gray-600">Leading long-form investigations into national security, technology policy, and corporate accountability.</p>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Item 2 -->
+                        <div class="relative">
+                            <div class="md:flex flex-row-reverse items-center">
+                                <div class="md:w-1/2 text-center md:text-left md:pl-8">
+                                    <h3 class="font-header text-xl font-bold text-saffron">Special Correspondent</h3>
+                                    <p class="text-gray-600 font-semibold">The Hindu</p>
+                                    <p class="text-sm text-gray-500">2015 - 2020</p>
+                                </div>
+                                <div class="md:w-1/2 md:pr-8 mt-4 md:mt-0 text-right">
+                                    <div class="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-saffron rounded-full border-4 border-white"></div>
+                                    <p class="text-gray-600">Covered national politics and foreign affairs, with postings in New Delhi and Washington D.C.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Item 3 -->
+                        <div class="relative">
+                            <div class="md:flex items-center">
+                                <div class="md:w-1/2 text-center md:text-right md:pr-8">
+                                    <h3 class="font-header text-xl font-bold text-deep-navy">Reporter</h3>
+                                    <p class="text-gray-600 font-semibold">The Times of India</p>
+                                    <p class="text-sm text-gray-500">2012 - 2015</p>
+                                </div>
+                                <div class="md:w-1/2 md:pl-8 mt-4 md:mt-0">
+                                    <div class="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-deep-navy rounded-full border-4 border-white"></div>
+                                    <p class="text-gray-600">Reported on local news, crime, and urban development in Mumbai, honing skills in ground-level reporting.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section id="achievements" class="py-20 md:py-28">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-header font-bold text-center mb-12">Awards & Recognition</h2>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 text-center hover:shadow-xl transition-shadow duration-300">
+                        <i class="fas fa-trophy text-3xl text-saffron mb-3"></i>
+                        <h3 class="font-header text-xl font-bold">Ramnath Goenka Award</h3>
+                        <p class="text-gray-500">Excellence in Journalism, 2023</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg border border-gray-200 text-center hover:shadow-xl transition-shadow duration-300">
+                        <i class="fas fa-award text-3xl text-teal mb-3"></i>
+                        <h3 class="font-header text-xl font-bold">Chameli Devi Jain Award</h3>
+                        <p class="text-gray-500">Outstanding Woman Mediapersons, 2021</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 text-center hover:shadow-xl transition-shadow duration-300">
+                        <i class="fas fa-shield-alt text-3xl text-deep-navy mb-3"></i>
+                        <h3 class="font-header text-xl font-bold">Press Freedom Award</h3>
+                        <p class="text-gray-500">Committee to Protect Journalists, 2019</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg border border-gray-200 text-center hover:shadow-xl transition-shadow duration-300">
+                        <i class="fas fa-feather-alt text-3xl text-gray-400 mb-3"></i>
+                        <h3 class="font-header text-xl font-bold">Kurt Schork Memorial Award</h3>
+                        <p class="text-gray-500">International Journalism, 2018</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 md:py-28 bg-gray-50">
+            <div class="container mx-auto px-6 max-w-3xl text-center">
+                <h2 class="text-4xl font-header font-bold mb-4">Let's Connect</h2>
+                <p class="text-gray-600 mb-8">Have a tip, a story idea, or just want to talk about journalism? Reach out.</p>
+                
+                <form class="w-full max-w-lg mx-auto text-left">
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full px-3">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-name">Full Name</label>
+                            <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-saffron" id="grid-name" type="text" placeholder="Priya Sharma">
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full px-3">
+                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-email">Email Address</label>
+                            <input class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-saffron" id="grid-email" type="email" placeholder="email@example.com">
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap -mx-3 mb-6">
+                        <div class="w-full px-3">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-message">Message</label>
+                            <textarea class="appearance-none block w-full bg-white text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-saffron" id="grid-message" rows="5" placeholder="Your message..."></textarea>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="bg-teal hover:bg-teal-700 text-white font-bold py-3 px-8 rounded-full transition-colors" type="button">
+                            Send Inquiry
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-deep-navy text-white">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid md:grid-cols-3 gap-8 text-center md:text-left">
+                <div>
+                    <h3 class="font-header text-xl font-bold mb-4">Priya Sharma</h3>
+                    <p class="text-gray-400 text-sm">Investigative Journalist</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold uppercase tracking-wider mb-4 text-saffron">Quick Links</h3>
+                    <a href="#stories" class="block mb-2 text-gray-300 hover:text-white">Stories</a>
+                    <a href="#about" class="block mb-2 text-gray-300 hover:text-white">About Me</a>
+                    <a href="#contact" class="block text-gray-300 hover:text-white">Contact</a>
+                </div>
+                <div>
+                    <h3 class="font-semibold uppercase tracking-wider mb-4 text-saffron">Follow Me</h3>
+                    <div class="flex justify-center md:justify-start space-x-6 text-2xl">
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-500 text-sm">
+                <p>&copy; 2025 Priya Sharma. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Mobile Menu Toggle ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            // Close mobile menu when a link is clicked
+            mobileMenu.addEventListener('click', (e) => {
+                if(e.target.tagName === 'A') {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

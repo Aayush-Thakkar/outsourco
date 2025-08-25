@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advocate Portfolio - Justice. Integrity. Advocacy.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0A1628',
+                        secondary: '#1B263B',
+                        accent: '#D4AF37',
+                        accentDark: '#B8941F',
+                        background: '#F8F9FA',
+                        textColor: '#0D1B2A',
+                        gold: '#FFD700',
+                        darkGold: '#DAA520'
+                    },
+                    fontFamily: {
+                        'heading': ['Merriweather', 'serif'],
+                        'body': ['Open Sans', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(10, 22, 40, 0.95), rgba(27, 38, 59, 0.9)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%230A1628" width="1200" height="600"/><g fill="%23D4AF37" opacity="0.15"><path d="M200 100 L250 150 L200 200 L150 150 Z"/><path d="M800 200 L850 250 L800 300 L750 250 Z"/><circle cx="1000" cy="150" r="40" stroke="%23FFD700" stroke-width="3" fill="none"/></g><g fill="%23FFD700" opacity="0.08"><rect x="100" y="350" width="150" height="100" rx="8"/><rect x="900" y="80" width="200" height="120" rx="10"/></g><g stroke="%23D4AF37" stroke-width="2" fill="none" opacity="0.2"><path d="M50 50 Q150 100 250 50"/><path d="M950 500 Q1050 450 1150 500"/></g></svg>');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.08) 0%, transparent 50%);
+        }
+        
+        .fade-in-left {
+            animation: fadeInLeft 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .fade-in-up.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .slide-in-right.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .scale-in.animate {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .stagger-animation {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .stagger-animation.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .card-hover:hover::before {
+            left: 100%;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(10, 22, 40, 0.2), 0 0 0 1px rgba(212, 175, 55, 0.1);
+        }
+        
+        .btn-transition {
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-transition::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+        }
+        
+        .btn-transition:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .testimonial-card {
+            min-height: 200px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '⚖️';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #D4AF37, #FFD700);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+            border: 2px solid #FFD700;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 2.5rem;
+            width: 3px;
+            height: calc(100% - 1rem);
+            background: linear-gradient(180deg, #D4AF37, #B8941F);
+            border-radius: 2px;
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        .timeline-card {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .timeline-card:hover {
+            transform: translateX(8px);
+            box-shadow: 0 12px 30px rgba(10, 22, 40, 0.15);
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+    </style>
+</head>
+<body class="font-body text-textColor bg-background">
+    <!-- Header -->
+    <header class="fixed top-0 w-full bg-white shadow-xl z-50 border-b-2 border-accent">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-3 fade-in-up animate">
+                    <div class="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center shadow-lg">
+                        <span class="text-gold font-bold text-lg">⚖️</span>
+                    </div>
+                    <div>
+                        <span class="font-heading font-bold text-xl text-primary">Advocate</span>
+                        <div class="text-xs text-accent font-medium">Legal Excellence</div>
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-textColor hover:text-accent btn-transition font-medium relative group">
+                        Home
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#about" class="text-textColor hover:text-accent btn-transition font-medium relative group">
+                        About
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#practice" class="text-textColor hover:text-accent btn-transition font-medium relative group">
+                        Practice Areas
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#cases" class="text-textColor hover:text-accent btn-transition font-medium relative group">
+                        Cases
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#testimonials" class="text-textColor hover:text-accent btn-transition font-medium relative group">
+                        Testimonials
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#contact" class="text-textColor hover:text-accent btn-transition font-medium relative group">
+                        Contact
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                </div>
+                <button class="md:hidden text-primary hover:text-accent btn-transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg min-h-screen flex items-center pt-20">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl">
+                <h1 class="font-heading text-5xl md:text-7xl font-bold text-white mb-6 fade-in-left">
+                    Justice. Integrity. Advocacy.
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-200 mb-8 fade-in-left" style="animation-delay: 0.3s;">
+                    Experienced Advocate for Civil, Criminal, and Corporate Matters
+                </p>
+                <button onclick="scrollToContact()" class="bg-gradient-to-r from-accent to-gold hover:from-accentDark hover:to-darkGold text-primary font-bold px-10 py-4 rounded-lg text-lg btn-transition fade-in-left shadow-xl border-2 border-gold hover:shadow-2xl transform hover:scale-105" style="animation-delay: 0.6s;">
+                    📞 Book a Consultation
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in-up">
+                    <h2 class="font-heading text-4xl font-bold text-primary mb-6">About Me</h2>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        With over 15 years of dedicated legal practice, I have built a reputation for unwavering commitment to justice and client advocacy. My approach combines deep legal expertise with genuine care for each client's unique situation.
+                    </p>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        Specializing in civil litigation, corporate law, and criminal defense, I believe in transparent communication, ethical practice, and fighting tirelessly for the rights of those I represent.
+                    </p>
+                    <div class="flex items-center space-x-6 p-6 bg-gradient-to-r from-background to-white rounded-lg border-l-4 border-accent shadow-lg">
+                        <div class="text-center">
+                            <div class="text-accent font-bold text-3xl">15+</div>
+                            <div class="text-gray-600 text-sm">Years Experience</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-accent font-bold text-3xl">500+</div>
+                            <div class="text-gray-600 text-sm">Cases Won</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-accent font-bold text-3xl">98%</div>
+                            <div class="text-gray-600 text-sm">Success Rate</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-center slide-in-right">
+                    <div class="w-80 h-96 bg-gradient-to-br from-primary via-secondary to-accent rounded-lg shadow-2xl flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-transparent via-gold/10 to-transparent"></div>
+                        <div class="text-center text-white relative z-10">
+                            <div class="w-32 h-32 bg-gradient-to-br from-gold/30 to-accent/30 rounded-full mx-auto mb-4 flex items-center justify-center backdrop-blur-sm border-2 border-gold/50">
+                                <svg class="w-16 h-16 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H9V3H7V1H5V3H3V5H5V7H3V9H5V11H3V13H5V15H3V17H5V19H3V21H5V23H7V21H9V23H11V21H13V23H15V21H17V23H19V21H21V19H19V17H21V15H19V13H21V11H19V9H21Z"/>
+                                </svg>
+                            </div>
+                            <p class="text-lg font-medium text-gold">Professional Portrait</p>
+                            <p class="text-sm text-gold/80 mt-2">Advocate & Legal Counsel</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practice Areas -->
+    <section id="practice" class="py-20 bg-gradient-to-br from-background to-white">
+        <div class="container mx-auto px-6">
+            <h2 class="font-heading text-4xl font-bold text-primary text-center mb-4 fade-in-up">Practice Areas</h2>
+            <p class="text-center text-gray-600 mb-12 fade-in-up">Comprehensive legal services with proven expertise</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover text-center border-t-4 border-accent stagger-animation" style="animation-delay: 0.1s;">
+                    <div class="w-16 h-16 bg-gradient-to-br from-accent to-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <span class="text-2xl">⚖️</span>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-primary mb-3">Civil Litigation</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Comprehensive representation in civil disputes, contract matters, and personal injury cases with proven track record.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover text-center border-t-4 border-accent stagger-animation" style="animation-delay: 0.2s;">
+                    <div class="w-16 h-16 bg-gradient-to-br from-accent to-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <span class="text-2xl">📜</span>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-primary mb-3">Corporate Law</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Business formation, compliance, mergers, acquisitions, and corporate governance for growing enterprises.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover text-center border-t-4 border-accent stagger-animation" style="animation-delay: 0.3s;">
+                    <div class="w-16 h-16 bg-gradient-to-br from-accent to-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <span class="text-2xl">🏛️</span>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-primary mb-3">Criminal Defense</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Aggressive defense strategies for criminal charges, from misdemeanors to felonies with dedicated advocacy.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg card-hover text-center border-t-4 border-accent stagger-animation" style="animation-delay: 0.4s;">
+                    <div class="w-16 h-16 bg-gradient-to-br from-accent to-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <span class="text-2xl">🤝</span>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-primary mb-3">Mediation & Arbitration</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">Alternative dispute resolution to achieve favorable outcomes outside of court with efficient solutions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Landmark Cases -->
+    <section id="cases" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="font-heading text-4xl font-bold text-primary text-center mb-12">Landmark Cases</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="timeline-item fade-in-up">
+                    <div class="timeline-card p-8 rounded-xl shadow-lg">
+                        <div class="flex items-start justify-between mb-4">
+                            <h3 class="font-heading text-2xl font-bold text-primary">Corporate Merger Victory</h3>
+                            <span class="bg-gradient-to-r from-accent to-gold text-primary px-4 py-2 rounded-full text-sm font-bold shadow-md">2024</span>
+                        </div>
+                        <div class="flex items-center mb-4">
+                            <span class="text-accent font-bold text-lg mr-2">💰</span>
+                            <p class="text-accent font-bold text-lg">$50M Settlement</p>
+                        </div>
+                        <p class="text-gray-700 leading-relaxed">Successfully negotiated a complex merger deal, protecting client interests and securing favorable terms in a multi-million dollar transaction. This case set new standards for corporate representation.</p>
+                    </div>
+                </div>
+                <div class="timeline-item fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="timeline-card p-8 rounded-xl shadow-lg">
+                        <div class="flex items-start justify-between mb-4">
+                            <h3 class="font-heading text-2xl font-bold text-primary">Criminal Defense Acquittal</h3>
+                            <span class="bg-gradient-to-r from-accent to-gold text-primary px-4 py-2 rounded-full text-sm font-bold shadow-md">2023</span>
+                        </div>
+                        <div class="flex items-center mb-4">
+                            <span class="text-accent font-bold text-lg mr-2">🏆</span>
+                            <p class="text-accent font-bold text-lg">Not Guilty Verdict</p>
+                        </div>
+                        <p class="text-gray-700 leading-relaxed">Achieved complete acquittal for client facing serious criminal charges through meticulous case preparation and compelling courtroom advocacy. A testament to thorough legal defense.</p>
+                    </div>
+                </div>
+                <div class="timeline-item fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="timeline-card p-8 rounded-xl shadow-lg">
+                        <div class="flex items-start justify-between mb-4">
+                            <h3 class="font-heading text-2xl font-bold text-primary">Civil Rights Case</h3>
+                            <span class="bg-gradient-to-r from-accent to-gold text-primary px-4 py-2 rounded-full text-sm font-bold shadow-md">2022</span>
+                        </div>
+                        <div class="flex items-center mb-4">
+                            <span class="text-accent font-bold text-lg mr-2">📜</span>
+                            <p class="text-accent font-bold text-lg">Landmark Ruling</p>
+                        </div>
+                        <p class="text-gray-700 leading-relaxed">Secured precedent-setting judgment in civil rights case, establishing important legal protections for future plaintiffs. This ruling continues to benefit the legal community.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-20 bg-gradient-to-br from-primary via-secondary to-primary relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-accent/5 via-transparent to-gold/5"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <h2 class="font-heading text-4xl font-bold text-white text-center mb-4 fade-in-up">Client Testimonials</h2>
+            <p class="text-center text-gold mb-12 fade-in-up">What our clients say about our legal services</p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-2xl testimonial-card border-t-4 border-accent scale-in" style="animation-delay: 0.1s;">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-accent to-gold rounded-full flex items-center justify-center mr-4">
+                            <span class="text-white font-bold">SJ</span>
+                        </div>
+                        <div>
+                            <div class="font-bold text-primary">Sarah Johnson</div>
+                            <div class="text-sm text-accent">Corporate Client</div>
+                        </div>
+                    </div>
+                    <div class="text-accent text-4xl mb-4 font-serif">"</div>
+                    <p class="text-gray-700 mb-4 italic leading-relaxed">"Exceptional legal representation. The attention to detail and commitment to my case was outstanding. I couldn't have asked for better advocacy."</p>
+                    <div class="flex text-accent">
+                        ⭐⭐⭐⭐⭐
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-2xl testimonial-card border-t-4 border-accent scale-in" style="animation-delay: 0.2s;">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-accent to-gold rounded-full flex items-center justify-center mr-4">
+                            <span class="text-white font-bold">MC</span>
+                        </div>
+                        <div>
+                            <div class="font-bold text-primary">Michael Chen</div>
+                            <div class="text-sm text-accent">Civil Litigation</div>
+                        </div>
+                    </div>
+                    <div class="text-accent text-4xl mb-4 font-serif">"</div>
+                    <p class="text-gray-700 mb-4 italic leading-relaxed">"Professional, knowledgeable, and truly cared about achieving the best outcome. The communication throughout the process was excellent."</p>
+                    <div class="flex text-accent">
+                        ⭐⭐⭐⭐⭐
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-2xl testimonial-card border-t-4 border-accent scale-in" style="animation-delay: 0.3s;">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-accent to-gold rounded-full flex items-center justify-center mr-4">
+                            <span class="text-white font-bold">ER</span>
+                        </div>
+                        <div>
+                            <div class="font-bold text-primary">Emily Rodriguez</div>
+                            <div class="text-sm text-accent">Criminal Defense</div>
+                        </div>
+                    </div>
+                    <div class="text-accent text-4xl mb-4 font-serif">"</div>
+                    <p class="text-gray-700 mb-4 italic leading-relaxed">"Incredible expertise and dedication. Turned what seemed like an impossible situation into a favorable resolution. Highly recommended."</p>
+                    <div class="flex text-accent">
+                        ⭐⭐⭐⭐⭐
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-background">
+        <div class="container mx-auto px-6">
+            <h2 class="font-heading text-4xl font-bold text-primary text-center mb-12 fade-in-up">Contact Information</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-xl shadow-lg text-center card-hover border-t-4 border-accent scale-in" style="animation-delay: 0.1s;">
+                        <div class="w-16 h-16 bg-gradient-to-br from-accent to-gold rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                            <span class="text-2xl">📞</span>
+                        </div>
+                        <h3 class="font-heading text-xl font-bold text-primary mb-3">Phone</h3>
+                        <p class="text-gray-600 mb-2">Office: +1 (555) 123-4567</p>
+                        <p class="text-gray-600">Mobile: +1 (555) 987-6543</p>
+                        <p class="text-sm text-accent mt-3 font-medium">Available 24/7 for emergencies</p>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-xl shadow-lg text-center card-hover border-t-4 border-accent scale-in" style="animation-delay: 0.2s;">
+                        <div class="w-16 h-16 bg-gradient-to-br from-accent to-gold rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                            <span class="text-2xl">📧</span>
+                        </div>
+                        <h3 class="font-heading text-xl font-bold text-primary mb-3">Email</h3>
+                        <p class="text-gray-600 mb-2">advocate@legalfirm.com</p>
+                        <p class="text-gray-600">consultation@legalfirm.com</p>
+                        <p class="text-sm text-accent mt-3 font-medium">Response within 24 hours</p>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-xl shadow-lg text-center card-hover border-t-4 border-accent scale-in" style="animation-delay: 0.3s;">
+                        <div class="w-16 h-16 bg-gradient-to-br from-accent to-gold rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                            <span class="text-2xl">📍</span>
+                        </div>
+                        <h3 class="font-heading text-xl font-bold text-primary mb-3">Office</h3>
+                        <p class="text-gray-600 mb-2">123 Legal District</p>
+                        <p class="text-gray-600 mb-2">Suite 456, Downtown</p>
+                        <p class="text-gray-600">City, State 12345</p>
+                        <p class="text-sm text-accent mt-3 font-medium">Mon-Fri: 9AM-6PM</p>
+                    </div>
+                </div>
+                
+                <div class="mt-12 text-center fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="bg-gradient-to-r from-primary to-secondary p-8 rounded-xl shadow-2xl text-white">
+                        <h3 class="font-heading text-2xl font-bold mb-4">Schedule a Consultation</h3>
+                        <p class="text-lg mb-6 text-gold">Free initial consultation for new clients</p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <a href="tel:+15551234567" class="bg-gradient-to-r from-accent to-gold hover:from-accentDark hover:to-darkGold text-primary font-bold px-8 py-3 rounded-lg btn-transition shadow-lg border-2 border-gold hover:shadow-xl transform hover:scale-105">
+                                📞 Call Now
+                            </a>
+                            <a href="mailto:advocate@legalfirm.com" class="bg-transparent border-2 border-gold text-gold hover:bg-gold hover:text-primary font-bold px-8 py-3 rounded-lg btn-transition shadow-lg transform hover:scale-105">
+                                📧 Send Email
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="text-center">
+                <div class="flex justify-center space-x-6 mb-6">
+                    <a href="#" class="text-white hover:text-accent btn-transition">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-white hover:text-accent btn-transition">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-white hover:text-accent btn-transition">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.085"/>
+                        </svg>
+                    </a>
+                </div>
+                <p class="text-gray-300">© 2025 Advocate Portfolio | All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function scrollToContact() {
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            // Add success animation
+            const button = event.target.querySelector('button[type="submit"]');
+            const originalText = button.innerHTML;
+            button.innerHTML = '✅ Message Sent!';
+            button.classList.add('bg-green-500', 'hover:bg-green-600');
+            
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.classList.remove('bg-green-500', 'hover:bg-green-600');
+            }, 3000);
+            
+            alert('Thank you for your inquiry! This is a demo form. In a real implementation, your message would be sent securely.');
+        }
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animation elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.fade-in-up, .slide-in-right, .scale-in, .stagger-animation');
+            animatedElements.forEach(el => observer.observe(el));
+            
+            // Stagger animation for practice area cards
+            const practiceCards = document.querySelectorAll('.stagger-animation');
+            practiceCards.forEach((card, index) => {
+                card.style.transitionDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Enhanced header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            const scrolled = window.scrollY;
+            
+            if (scrolled > 100) {
+                header.classList.add('bg-opacity-95', 'backdrop-blur-sm');
+                header.style.transform = 'translateY(0)';
+            } else {
+                header.classList.remove('bg-opacity-95', 'backdrop-blur-sm');
+            }
+            
+            // Parallax effect for hero section
+            const hero = document.querySelector('.hero-bg');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.classList.add('loaded');
+            
+            // Trigger header animation
+            setTimeout(() => {
+                const headerElements = document.querySelectorAll('header .fade-in-up');
+                headerElements.forEach(el => el.classList.add('animate'));
+            }, 100);
+        });
+
+        // Add hover sound effect simulation (visual feedback)
+        document.querySelectorAll('.card-hover, .btn-transition').forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                this.style.transform = this.style.transform + ' scale(1.02)';
+            });
+            
+            element.addEventListener('mouseleave', function() {
+                this.style.transform = this.style.transform.replace(' scale(1.02)', '');
+            });
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9734763573666ec5',t:'MTc1NTg4NzY0MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
