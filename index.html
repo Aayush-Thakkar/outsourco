@@ -1,420 +1,775 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Interior Design Portfolio</title>
     
-    <!-- Meta Tags from JSON -->
-    <title>Alain Dev — Software Engineer</title>
-    <meta name="description" content="Full-stack engineer building scalable systems, ML prototypes, and developer tools.">
-    <link rel="icon" href="https://placehold.co/32x32/0b63ff/e6eef8?text=AD" type="image/png">
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-
-    <!-- Custom Styles from JSON -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    
     <style>
+        /* --- CORE VARIABLES & RESET --- */
         :root {
-            --primary-color: #0b63ff;
-            --accent-color: #ff6b6b;
-            --bg-color: #0f1724;
-            --text-color: #e6eef8;
-            --heading-font: 'Inter', sans-serif;
-            --body-font: 'Inter', sans-serif;
-            --rounded: 8px;
-            --shadow: 0 8px 24px rgba(2,6,23,0.6);
+            --bg-dark: #0d0d0d;
+            --gold: #c9a96e;
+            --cream: #f5f0e8;
+            --font-head: 'Playfair Display', serif;
+            --font-body: 'Cormorant Garamond', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; /* Hide default cursor */
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: var(--body-font);
+            background-color: var(--bg-dark);
+            color: var(--cream);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
         h1, h2, h3, h4, h5, h6 {
-            font-family: var(--heading-font);
-            font-weight: 700;
-        }
-        
-        .animated-gradient {
-            background: linear-gradient(-45deg, #0f1724, #1a2a45, #0b63ff, #0f1724);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
+            font-family: var(--font-head);
+            font-weight: 400;
         }
 
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        a {
+            color: var(--gold);
+            text-decoration: none;
         }
-        
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--rounded);
-            font-weight: 600;
-            transition: all 0.3s ease;
+
+        /* --- GLOBAL ELEMENTS --- */
+        #grain-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.04;
+            mix-blend-mode: overlay;
+        }
+
+        .cursor-dot, .cursor-ring {
+            position: fixed;
+            top: 0; left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        .cursor-dot {
+            width: 6px; height: 6px;
+            background-color: var(--gold);
+        }
+        .cursor-ring {
+            width: 30px; height: 30px;
+            border: 1px solid rgba(201, 169, 110, 0.5);
+            transition: width 0.3s, height 0.3s, border-color 0.3s;
+        }
+        .cursor-ring.active {
+            width: 60px; height: 60px;
+            border-color: var(--cream);
+            background-color: rgba(245, 240, 232, 0.1);
+        }
+
+        .gold-line {
+            width: 1px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+            margin: 0 auto;
+        }
+        .gold-line-h {
+            height: 1px;
+            width: 100px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+        }
+
+        /* --- SECTION 1: HERO --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+        .hero-img-container {
+            position: absolute;
+            width: 110vw;
+            height: 110vh;
+            top: -5vh; left: -5vw;
+            z-index: 1;
+            transition: transform 0.1s ease-out;
+            transform-style: preserve-3d;
+        }
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            pointer-events: none;
+            transform: translateZ(50px); /* 3D pop out */
+        }
+        .hero h1 {
+            font-size: 6vw;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            color: var(--cream);
+        }
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--gold);
+            font-style: italic;
+            letter-spacing: 0.1em;
+        }
+
+        /* --- SECTION 2: HORIZONTAL GALLERY --- */
+        .gallery-container {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .gallery-wrapper {
+            display: flex;
+            padding: 0 10vw;
+            gap: 5vw;
+            align-items: center;
+        }
+        .gallery-card {
+            flex: 0 0 40vw;
+            height: 60vh;
+            position: relative;
+            perspective: 1000px;
+        }
+        @media (max-width: 768px) {
+            .gallery-card { flex: 0 0 80vw; height: 50vh; }
+        }
+        .gallery-card-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .gallery-card:hover .gallery-card-inner {
+            transform: rotateX(10deg) rotateY(-10deg);
+        }
+        .gallery-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        .gallery-info {
+            position: absolute;
+            bottom: -3rem;
+            left: 0;
+            transform: translateZ(30px);
+        }
+        .gallery-info h3 {
+            font-size: 2rem;
+            margin-bottom: 0.2rem;
+        }
+        .gallery-info p {
+            color: var(--gold);
+            font-style: italic;
+        }
+
+        /* --- SECTION 3: PHILOSOPHY --- */
+        .philosophy {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10vw;
+            position: relative;
+        }
+        .philosophy-text {
+            font-size: 4vw;
+            line-height: 1.4;
+            text-align: center;
+            max-width: 1200px;
+        }
+        @media (max-width: 768px) { .philosophy-text { font-size: 8vw; } }
+        .word {
+            opacity: 0.1;
             display: inline-block;
+            transition: opacity 0.1s;
+        }
+
+        /* --- SECTION 4: SERVICES (GLASSMORPHISM) --- */
+        .services {
+            padding: 10vw;
+            position: relative;
+        }
+        .services-header {
             text-align: center;
+            margin-bottom: 5rem;
+        }
+        .services-header h2 { font-size: 3rem; color: var(--gold); }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+        .service-card {
+            background: rgba(245, 240, 232, 0.03);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(201, 169, 110, 0.2);
+            padding: 3rem 2rem;
+            border-radius: 8px;
+            transition: transform 0.4s ease, border-color 0.4s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(201, 169, 110, 0.6);
+        }
+        .service-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--cream);
+        }
+        .service-card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #aaa;
         }
 
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: white;
+        /* --- SECTION 5: BEFORE / AFTER --- */
+        .before-after {
+            padding: 10vw 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
+        .ba-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .ba-container {
+            position: relative;
+            width: 80vw;
+            height: 60vh;
+            overflow: hidden;
+            border-radius: 8px;
+            cursor: ew-resize;
+        }
+        .ba-img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+        .ba-after-wrapper {
+            position: absolute;
+            top: 0; left: 0;
+            width: 50%; height: 100%;
+            overflow: hidden;
+            border-right: 2px solid var(--gold);
+        }
+        .ba-slider {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            opacity: 0;
+            cursor: ew-resize;
+        }
+        .ba-handle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 5;
+        }
+        .ba-handle::before, .ba-handle::after {
+            content: '';
+            border: solid var(--bg-dark);
+            border-width: 0 2px 2px 0;
+            display: inline-block;
+            padding: 4px;
+        }
+        .ba-handle::before { transform: rotate(135deg); margin-right: 5px; }
+        .ba-handle::after { transform: rotate(-45deg); margin-left: 5px; }
+
+        /* --- SECTION 6: TESTIMONIALS --- */
+        .testimonials {
+            padding: 15vw 5vw;
+            position: relative;
+            overflow: hidden;
+        }
+        .testimonial-track {
+            display: flex;
+            flex-direction: column;
+            gap: 10vh;
+            align-items: center;
+        }
+        .testimonial-item {
+            max-width: 800px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        .testimonial-item p {
+            font-size: 2.2rem;
+            line-height: 1.4;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        .testimonial-item h4 {
+            color: var(--gold);
+            font-size: 1.2rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
         }
 
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--text-color);
-            border: 2px solid var(--primary-color);
+        /* --- SECTION 7: FOOTER --- */
+        footer {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #080808;
+            position: relative;
+            overflow: hidden;
         }
-        .btn-secondary:hover {
-            background-color: var(--primary-color);
-            color: white;
+        .footer-content {
+            text-align: center;
+            z-index: 2;
         }
-        
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 900;
+        .footer-content h2 {
+            font-size: 5vw;
             margin-bottom: 2rem;
-            text-align: center;
+        }
+        .magnetic-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 180px; height: 180px;
+            background: transparent;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            color: var(--gold);
+            font-size: 1.2rem;
+            font-family: var(--font-head);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.3s, background 0.3s;
+            cursor: pointer;
+        }
+        .magnetic-btn:hover {
+            background: var(--gold);
+            color: var(--bg-dark);
+        }
+        .footer-bottom {
+            position: absolute;
+            bottom: 2rem;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            font-size: 0.9rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
         
-        .card {
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: var(--rounded);
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
+        /* Helper Classes */
+        .interactive { cursor: none; }
     </style>
 </head>
-<body class="antialiased">
+<body>
 
-    <!-- Accessibility: Skip Navigation -->
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-4 focus:left-4 focus:px-4 focus:py-2 focus:bg-white focus:text-black rounded-lg">Skip to main content</a>
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
 
-    <!-- Header -->
-    <header id="header" class="fixed top-0 left-0 right-0 z-40 bg-opacity-80 backdrop-blur-lg border-b border-slate-700/50" style="background-color: rgba(15, 23, 36, 0.8);">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center max-w-[1200px]">
-            <a href="#" class="text-2xl font-bold" style="color: var(--text-color);">Alain Dev</a>
-            <nav class="hidden md:flex items-center space-x-8">
-                <a href="#about" class="hover:text-[var(--primary-color)] transition-colors">About</a>
-                <a href="#skills" class="hover:text-[var(--primary-color)] transition-colors">Skills</a>
-                <a href="#projects" class="hover:text-[var(--primary-color)] transition-colors">Projects</a>
-                <a href="#contact" class="hover:text-[var(--primary-color)] transition-colors">Contact</a>
-            </nav>
-            <div class="hidden md:block">
-                <a href="mailto:alain@example.com" class="btn btn-primary">Hire me</a>
-            </div>
-            <button id="mobile-menu-btn" class="md:hidden text-2xl">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-            </button>
-        </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-slate-800">
-            <a href="#about" class="block py-3 px-6 hover:bg-slate-700">About</a>
-            <a href="#skills" class="block py-3 px-6 hover:bg-slate-700">Skills</a>
-            <a href="#projects" class="block py-3 px-6 hover:bg-slate-700">Projects</a>
-            <a href="#contact" class="block py-3 px-6 hover:bg-slate-700">Contact</a>
-            <div class="p-4">
-                <a href="mailto:alain@example.com" class="btn btn-primary w-full">Hire me</a>
-            </div>
-        </div>
-    </header>
+    <!-- Grain Overlay -->
+    <canvas id="grain-canvas"></canvas>
 
-    <main id="main-content">
+    <!-- Smooth Scroll Wrapper -->
+    <div id="smooth-wrapper">
+        <div id="smooth-content">
 
-        <!-- Hero Section -->
-        <section id="hero" class="relative min-h-screen flex items-center animated-gradient overflow-hidden">
-            <div class="container mx-auto px-6 py-24 max-w-[1200px]">
-                <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <!-- Left Content -->
-                    <div class="text-center md:text-left">
-                        <span class="text-lg font-semibold" style="color: var(--primary-color);">Hi, I'm</span>
-                        <h1 class="text-4xl md:text-6xl font-black my-4 leading-tight">Alain — Software Engineer & ML Enthusiast</h1>
-                        <p class="text-lg text-slate-300 mb-8">I build production-ready systems and machine learning prototypes that solve real problems.</p>
-                        <div class="flex justify-center md:justify-start gap-4">
-                            <a href="#projects" class="btn btn-primary">See Projects</a>
-                            <a href="/assets/Alain_CV.pdf" class="btn btn-secondary">Download CV</a>
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-img-container" id="hero-bg">
+                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2574&auto=format&fit=crop" class="hero-img" alt="Editorial Interior">
+                </div>
+                <div class="hero-content">
+                    <h1>AURELIA DESIGN</h1>
+                    <div class="gold-line" style="height: 60px; margin-bottom: 1rem;"></div>
+                    <p>Curating Atmosphere & Form</p>
+                </div>
+            </section>
+
+            <!-- Horizontal Scroll Gallery -->
+            <section class="gallery-container" id="gallery-pin">
+                <div class="gallery-wrapper" id="gallery-scroll">
+                    <!-- Card 1 -->
+                    <div class="gallery-card interactive" data-hover="true">
+                        <div class="gallery-card-inner">
+                            <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?q=80&w=2000&auto=format&fit=crop" alt="Project 1">
+                        </div>
+                        <div class="gallery-info">
+                            <h3>The Onyx Penthouse</h3>
+                            <p>Manhattan, NY</p>
                         </div>
                     </div>
-                    <!-- Right Content -->
-                    <div class="relative flex justify-center">
-                        <div class="absolute top-0 right-0 -mt-4 -mr-4 md:mr-0 z-10 bg-opacity-80 backdrop-blur-sm rounded-md px-3 py-1 text-sm font-semibold border border-slate-600" style="background-color: rgba(255, 107, 107, 0.1); color: var(--accent-color);">
-                            Open to freelance & internships
+                    <!-- Card 2 -->
+                    <div class="gallery-card interactive" data-hover="true">
+                        <div class="gallery-card-inner">
+                            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=2000&auto=format&fit=crop" alt="Project 2">
                         </div>
-                        <img src="https://placehold.co/800x800/1a2a45/e6eef8?text=Alain" 
-                             alt="Profile photo of Alain" 
-                             class="w-64 h-64 md:w-96 md:h-96 rounded-full object-cover border-8 border-slate-700/50"
-                             style="box-shadow: var(--shadow);"
-                             loading="lazy"
-                             onerror="this.onerror=null;this.src='https://placehold.co/800x800/1a2a45/e6eef8?text=Image+Not+Found';">
+                        <div class="gallery-info">
+                            <h3>Lumina Estate</h3>
+                            <p>Lake Como, IT</p>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="gallery-card interactive" data-hover="true">
+                        <div class="gallery-card-inner">
+                            <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=2000&auto=format&fit=crop" alt="Project 3">
+                        </div>
+                        <div class="gallery-info">
+                            <h3>Casa Branca</h3>
+                            <p>Lisbon, PT</p>
+                        </div>
+                    </div>
+                     <!-- Space Buffer for scrolling -->
+                    <div style="flex: 0 0 10vw;"></div>
+                </div>
+            </section>
+
+            <!-- Sticky Philosophy Section -->
+            <section class="philosophy">
+                <div class="philosophy-text" id="split-text">
+                    We believe that a space should not merely exist, but resonate. By harmonizing raw textures, shadow plays, and meticulous proportions, we sculpt environments that elevate the human experience.
+                </div>
+            </section>
+
+            <!-- Glassmorphism Services Section -->
+            <section class="services">
+                <div class="services-header">
+                    <h2>The Expertise</h2>
+                    <div class="gold-line-h" style="margin: 1rem auto;"></div>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card gs-fade">
+                        <h3>Spatial Architecture</h3>
+                        <p>Restructuring volumes and flow to maximize light, functionality, and emotional impact within interior shells.</p>
+                    </div>
+                    <div class="service-card gs-fade">
+                        <h3>Bespoke Curation</h3>
+                        <p>Sourcing rare vintage pieces, commissioning custom furniture, and curating fine art collections tailored to the narrative.</p>
+                    </div>
+                    <div class="service-card gs-fade">
+                        <h3>Atmospheric Lighting</h3>
+                        <p>Layering architectural and decorative illumination to sculpt mood, define zones, and highlight material richness.</p>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- About Section -->
-        <section id="about" class="py-20">
-            <div class="container mx-auto px-6 max-w-[1200px]">
-                <h2 class="section-title">About Me</h2>
-                <div class="max-w-3xl mx-auto text-center">
-                    <p class="text-lg text-slate-300 mb-8">I am a B.Tech student focusing on AI/ML and systems engineering. I enjoy building end-to-end projects, from embedded prototypes to cloud deployments.</p>
-                    <div class="flex flex-wrap justify-center gap-6 text-left">
-                        <div class="card text-center">
-                            <h3 class="font-bold text-lg mb-1" style="color: var(--primary-color);">Experience</h3>
-                            <p>3+ projects</p>
-                        </div>
-                        <div class="card text-center">
-                            <h3 class="font-bold text-lg mb-1" style="color: var(--primary-color);">Tech</h3>
-                            <p>Python, C/C++, JavaScript</p>
-                        </div>
-                        <div class="card text-center">
-                            <h3 class="font-bold text-lg mb-1" style="color: var(--primary-color);">Interests</h3>
-                            <p>ML, Computer Vision, Embedded Systems</p>
-                        </div>
+            <!-- Before/After Slider -->
+            <section class="before-after gs-fade">
+                <div class="ba-header">
+                    <h2>The Transformation</h2>
+                    <p style="color: var(--gold); font-style: italic; margin-top: 0.5rem;">Drag to reveal</p>
+                </div>
+                <div class="ba-container interactive" data-hover="true">
+                    <!-- After Image (Background) -->
+                    <img class="ba-img" src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?q=80&w=2000&auto=format&fit=crop" alt="Finished Interior">
+                    
+                    <!-- Before Image (Clipped) -->
+                    <div class="ba-after-wrapper" id="ba-wrapper">
+                        <img class="ba-img" style="width: 80vw;" src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?q=80&w=2000&auto=format&fit=crop" alt="Raw Interior">
+                    </div>
+                    
+                    <div class="ba-handle" id="ba-handle"></div>
+                    <input type="range" class="ba-slider" id="ba-slider" min="0" max="100" value="50">
+                </div>
+            </section>
+
+            <!-- Testimonials -->
+            <section class="testimonials">
+                <div class="testimonial-track">
+                    <div class="testimonial-item">
+                        <p>"They did not just design a house; they uncovered the soul of our home. Every texture tells a story, every shadow feels intentional."</p>
+                        <h4>— Eleanor R., Manhattan</h4>
+                    </div>
+                    <div class="testimonial-item">
+                        <p>"A masterclass in restraint and luxury. The spaces feel impossibly grand, yet profoundly intimate."</p>
+                        <h4>— Julian V., London</h4>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="py-20 bg-slate-900/50">
-            <div class="container mx-auto px-6 max-w-[1200px]">
-                <h2 class="section-title">Skills & Tools</h2>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Languages -->
-                    <div class="card">
-                        <h3 class="text-xl font-bold mb-4">Languages</h3>
-                        <ul class="space-y-2">
-                            <li>Python</li>
-                            <li>C/C++</li>
-                            <li>JavaScript</li>
-                            <li>TypeScript</li>
-                        </ul>
-                    </div>
-                    <!-- Frameworks & Tools -->
-                    <div class="card">
-                        <h3 class="text-xl font-bold mb-4">Frameworks & Tools</h3>
-                        <ul class="space-y-2">
-                            <li>PyTorch</li>
-                            <li>TensorFlow</li>
-                            <li>React</li>
-                            <li>Flask</li>
-                            <li>Docker</li>
-                        </ul>
-                    </div>
-                    <!-- DevOps & Cloud -->
-                    <div class="card">
-                        <h3 class="text-xl font-bold mb-4">DevOps & Cloud</h3>
-                        <ul class="space-y-2">
-                            <li>Git</li>
-                            <li>Linux</li>
-                            <li>AWS (S3, Lambda)</li>
-                            <li>CI/CD</li>
-                        </ul>
-                    </div>
+            <!-- Magnetic Footer CTA -->
+            <footer>
+                <div class="footer-content">
+                    <h2>Begin the Dialogue</h2>
+                    <div class="magnetic-btn interactive" id="magnetic-btn">Inquire</div>
                 </div>
-                <!-- Skill Bars -->
-                <div class="mt-12 max-w-3xl mx-auto">
-                    <h3 class="text-xl font-bold mb-4 text-center">Proficiency</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <p class="font-semibold mb-1">Python</p>
-                            <div class="w-full bg-slate-700 rounded-full h-2.5">
-                                <div class="bg-[var(--primary-color)] h-2.5 rounded-full" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <p class="font-semibold mb-1">C/C++</p>
-                            <div class="w-full bg-slate-700 rounded-full h-2.5">
-                                <div class="bg-[var(--primary-color)] h-2.5 rounded-full" style="width: 78%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <p class="font-semibold mb-1">React</p>
-                            <div class="w-full bg-slate-700 rounded-full h-2.5">
-                                <div class="bg-[var(--primary-color)] h-2.5 rounded-full" style="width: 70%"></div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="footer-bottom">
+                    <span>© 2026 Aurelia Design</span>
+                    <span>Studio@Aurelia.com</span>
+                    <span>Instagram / Pinterest</span>
                 </div>
-            </div>
-        </section>
+            </footer>
 
-        <!-- Projects Section -->
-        <section id="projects" class="py-20">
-            <div class="container mx-auto px-6 max-w-[1200px]">
-                <h2 class="section-title">Selected Projects</h2>
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Project 1 -->
-                    <div class="card flex flex-col">
-                        <img src="https://placehold.co/1200x800/1a2a45/e6eef8?text=FOG+Project" alt="FOG Project Thumbnail" class="rounded-t-lg mb-4 w-full h-48 object-cover" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/1a2a45/e6eef8?text=Image+Not+Found';">
-                        <div class="flex-grow">
-                            <h3 class="text-xl font-bold">FOG — WiFi Deauth Tool (Research)</h3>
-                            <div class="flex flex-wrap gap-2 my-2">
-                                <span class="text-xs font-semibold bg-blue-900/50 text-[var(--primary-color)] px-2 py-1 rounded">Embedded</span>
-                                <span class="text-xs font-semibold bg-blue-900/50 text-[var(--primary-color)] px-2 py-1 rounded">ESP8266</span>
-                                <span class="text-xs font-semibold bg-blue-900/50 text-[var(--primary-color)] px-2 py-1 rounded">Networking</span>
-                            </div>
-                            <p class="text-slate-300 text-sm">NodeMCU-based deauth experiment for lab-network testing (educational use only).</p>
-                        </div>
-                        <div class="mt-4 pt-4 border-t border-slate-700 flex justify-between items-center">
-                            <a href="https://github.com/username/fog" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--primary-color)]">GitHub Repo</a>
-                            <button class="text-sm font-semibold hover:text-[var(--primary-color)] project-modal-trigger" data-project-id="proj-esp-node">Read More</button>
-                        </div>
-                    </div>
-                    <!-- Project 2 -->
-                    <div class="card flex flex-col">
-                        <img src="https://placehold.co/1200x800/1a2a45/e6eef8?text=Code+Explainer" alt="Terminal Code Explainer Thumbnail" class="rounded-t-lg mb-4 w-full h-48 object-cover" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/1200x800/1a2a45/e6eef8?text=Image+Not+Found';">
-                        <div class="flex-grow">
-                            <h3 class="text-xl font-bold">Terminal Code Explainer</h3>
-                            <div class="flex flex-wrap gap-2 my-2">
-                                <span class="text-xs font-semibold bg-blue-900/50 text-[var(--primary-color)] px-2 py-1 rounded">Python</span>
-                                <span class="text-xs font-semibold bg-blue-900/50 text-[var(--primary-color)] px-2 py-1 rounded">NLP</span>
-                                <span class="text-xs font-semibold bg-blue-900/50 text-[var(--primary-color)] px-2 py-1 rounded">Web</span>
-                            </div>
-                            <p class="text-slate-300 text-sm">A terminal-based explainer that steps through code with natural-language descriptions.</p>
-                        </div>
-                        <div class="mt-4 pt-4 border-t border-slate-700 flex justify-between items-center">
-                            <a href="https://github.com/username/code-explainer" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--primary-color)]">GitHub Repo</a>
-                            <a href="https://aayushthakkar.pythonanywhere.com" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--primary-color)]">Live Demo</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Testimonials Section -->
-        <section id="testimonials" class="py-20 bg-slate-900/50">
-            <div class="container mx-auto px-6 max-w-[1200px]">
-                <h2 class="section-title">Recommendations</h2>
-                <div class="max-w-2xl mx-auto">
-                    <div class="card text-center">
-                        <img src="https://placehold.co/100x100/1a2a45/e6eef8?text=Prof.X" alt="Avatar of Prof. X" class="w-20 h-20 rounded-full mx-auto mb-4" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/100x100/1a2a45/e6eef8?text=Avatar';">
-                        <p class="text-lg italic text-slate-300">"Alain delivered an excellent embedded systems demo with clear documentation."</p>
-                        <p class="mt-4 font-bold">Prof. X</p>
-                        <p class="text-sm text-slate-400">Supervisor</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Contact Section -->
-        <section id="contact" class="py-20">
-            <div class="container mx-auto px-6 max-w-[1200px]">
-                <h2 class="section-title">Get In Touch</h2>
-                <div class="max-w-2xl mx-auto text-center">
-                    <p class="text-lg text-slate-300 mb-8">Have a project in mind or just want to say hi? Feel free to reach out.</p>
-                    <a href="mailto:alain@example.com" class="btn btn-primary text-lg">alain@example.com</a>
-                    <div class="flex justify-center gap-6 mt-8">
-                        <a href="https://github.com/username" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--primary-color)] transition-colors">GitHub</a>
-                        <a href="https://linkedin.com/in/username" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--primary-color)] transition-colors">LinkedIn</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-slate-900 border-t border-slate-800 py-8">
-        <div class="container mx-auto px-6 max-w-[1200px] text-center text-slate-400">
-            <p>&copy; 2025 Alain. All rights reserved.</p>
-            <div class="flex justify-center gap-6 mt-4">
-                <a href="/privacy" class="hover:text-white">Privacy</a>
-                <a href="/assets/Alain_CV.pdf" class="hover:text-white">CV</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Project Modal -->
-    <div id="project-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center p-4">
-        <div id="project-modal-content" class="card max-w-2xl w-full relative transform transition-all duration-300 scale-95 opacity-0">
-            <button id="project-modal-close" class="absolute top-4 right-4 text-2xl hover:text-[var(--accent-color)]">&times;</button>
-            <h3 id="modal-title" class="text-2xl font-bold mb-4"></h3>
-            <p id="modal-description" class="text-slate-300"></p>
         </div>
     </div>
-    
+
+    <!-- CDN Libraries -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
     <script>
-        // --- Data for Modals ---
-        const projectDetails = {
-            "proj-esp-node": {
-                title: "FOG — WiFi Deauth Tool (Research)",
-                longDescription: "Built using NodeMCU (ESP8266). Includes WiFi scanning and custom packet generation. Implemented a safe UI and logging for experiments. This project was developed for educational purposes to understand network vulnerabilities in a controlled lab environment and should not be used for malicious activities."
-            }
-            // Add other project details here if they have long descriptions
-        };
+        // 1. Lenis Smooth Scroll Setup
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+            infinite: false,
+        });
 
-        document.addEventListener('DOMContentLoaded', () => {
-            // --- Mobile Menu ---
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
 
-            // Close mobile menu when a link is clicked
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
-                });
-            });
+        // Connect Lenis to GSAP ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+        gsap.ticker.lagSmoothing(0);
 
-            // --- Project Modal ---
-            const modal = document.getElementById('project-modal');
-            const modalContent = document.getElementById('project-modal-content');
-            const modalCloseBtn = document.getElementById('project-modal-close');
-            const modalTitle = document.getElementById('modal-title');
-            const modalDescription = document.getElementById('modal-description');
+        // 2. Custom Cursor Logic
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorRing = document.querySelector('.cursor-ring');
+        const interactives = document.querySelectorAll('.interactive, a, button');
 
-            document.querySelectorAll('.project-modal-trigger').forEach(button => {
-                button.addEventListener('click', () => {
-                    const projectId = button.dataset.projectId;
-                    const details = projectDetails[projectId];
-                    if (details) {
-                        modalTitle.textContent = details.title;
-                        modalDescription.textContent = details.longDescription;
-                        modal.classList.remove('hidden');
-                        modal.classList.add('flex');
-                        setTimeout(() => {
-                            modalContent.classList.remove('scale-95', 'opacity-0');
-                            modalContent.classList.add('scale-100', 'opacity-100');
-                        }, 50);
-                    }
-                });
-            });
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let ringX = mouseX;
+        let ringY = mouseY;
 
-            const closeModal = () => {
-                modalContent.classList.add('scale-95', 'opacity-0');
-                setTimeout(() => {
-                    modal.classList.add('hidden');
-                    modal.classList.remove('flex');
-                }, 300);
-            };
-
-            modalCloseBtn.addEventListener('click', closeModal);
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    closeModal();
-                }
-            });
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
             
-            // Close modal with Escape key
-            document.addEventListener('keydown', (e) => {
-                if (e.key === "Escape" && !modal.classList.contains('hidden')) {
-                    closeModal();
+            // Dot follows instantly
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
+        });
+
+        // Ring follows with delay (lerp)
+        const renderCursor = () => {
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            cursorRing.style.left = `${ringX}px`;
+            cursorRing.style.top = `${ringY}px`;
+            requestAnimationFrame(renderCursor);
+        };
+        requestAnimationFrame(renderCursor);
+
+        interactives.forEach(el => {
+            el.addEventListener('mouseenter', () => cursorRing.classList.add('active'));
+            el.addEventListener('mouseleave', () => cursorRing.classList.remove('active'));
+        });
+
+        // 3. Canvas Grain Overlay
+        const canvas = document.getElementById('grain-canvas');
+        const ctx = canvas.getContext('2d');
+        
+        const resizeCanvas = () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        };
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const drawGrain = () => {
+            const w = canvas.width;
+            const h = canvas.height;
+            const imgData = ctx.createImageData(w, h);
+            const buffer32 = new Uint32Array(imgData.data.buffer);
+            const len = buffer32.length;
+
+            for (let i = 0; i < len; i++) {
+                if (Math.random() < 0.5) {
+                    buffer32[i] = 0xffffffff; // White
+                } else {
+                    buffer32[i] = 0xff000000; // Black
                 }
+            }
+            ctx.putImageData(imgData, 0, 0);
+            requestAnimationFrame(drawGrain);
+        };
+        drawGrain();
+
+        // 4. Hero 3D Parallax Tilt
+        const heroSection = document.querySelector('.hero');
+        const heroBg = document.getElementById('hero-bg');
+
+        heroSection.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 20; // max 20deg
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+            
+            gsap.to(heroBg, {
+                rotationY: x,
+                rotationX: -y,
+                ease: "power2.out",
+                duration: 1
+            });
+        });
+        heroSection.addEventListener('mouseleave', () => {
+            gsap.to(heroBg, { rotationY: 0, rotationX: 0, ease: "power2.out", duration: 1 });
+        });
+
+        // 5. Horizontal Scroll Gallery
+        const galleryScroll = document.getElementById('gallery-scroll');
+        const getScrollAmount = () => -(galleryScroll.scrollWidth - window.innerWidth);
+
+        const tween = gsap.to(galleryScroll, {
+            x: getScrollAmount,
+            ease: "none"
+        });
+
+        ScrollTrigger.create({
+            trigger: "#gallery-pin",
+            start: "top top",
+            end: () => `+=${getScrollAmount() * -1}`,
+            pin: true,
+            animation: tween,
+            scrub: 1,
+            invalidateOnRefresh: true
+        });
+
+        // 6. Sticky Philosophy Text Reveal
+        const textElement = document.getElementById('split-text');
+        const text = textElement.innerText;
+        textElement.innerHTML = ''; // Clear original
+
+        // Wrap words in spans
+        text.split(' ').forEach(word => {
+            const span = document.createElement('span');
+            span.className = 'word';
+            span.innerText = word + ' ';
+            textElement.appendChild(span);
+        });
+
+        gsap.to('.word', {
+            scrollTrigger: {
+                trigger: ".philosophy",
+                start: "top 40%",
+                end: "bottom 80%",
+                scrub: 1,
+            },
+            opacity: 1,
+            stagger: 0.1,
+            ease: "none"
+        });
+
+        // 7. General Section Fades
+        gsap.utils.toArray('.gs-fade').forEach(el => {
+            gsap.from(el, {
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 85%",
+                    toggleActions: "play none none reverse"
+                },
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+        });
+
+        // Testimonial Scroll Reveal
+        gsap.utils.toArray('.testimonial-item').forEach(item => {
+            gsap.to(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 80%",
+                    end: "top 50%",
+                    scrub: 1
+                },
+                y: 0,
+                opacity: 1,
+                ease: "none"
+            });
+        });
+
+        // 8. Before/After Slider Logic
+        const slider = document.getElementById('ba-slider');
+        const wrapper = document.getElementById('ba-wrapper');
+        const handle = document.getElementById('ba-handle');
+
+        slider.addEventListener('input', (e) => {
+            const val = e.target.value;
+            wrapper.style.width = `${val}%`;
+            handle.style.left = `${val}%`;
+        });
+
+        // 9. Magnetic Footer Button
+        const magneticBtn = document.getElementById('magnetic-btn');
+        
+        magneticBtn.addEventListener('mousemove', (e) => {
+            const rect = magneticBtn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+
+            gsap.to(magneticBtn, {
+                x: x * 0.4,
+                y: y * 0.4,
+                duration: 0.3,
+                ease: "power2.out"
+            });
+        });
+
+        magneticBtn.addEventListener('mouseleave', () => {
+            gsap.to(magneticBtn, {
+                x: 0,
+                y: 0,
+                duration: 0.7,
+                ease: "elastic.out(1, 0.3)"
             });
         });
     </script>
